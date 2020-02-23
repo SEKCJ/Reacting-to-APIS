@@ -93,14 +93,14 @@ class App extends Component {
         if (this.state.hasLoaded === "films") {
             return (
                 <React.Fragment>
-                    <h1 className="title d-flex justify-content-center my-4">Films:</h1>
+                    <h1 className="title d-flex justify-content-center mt-4 mb-2">Films:</h1>
                     <Map arr1={this.state.property1} arr2={this.state.property2} id={this.state.id}></Map>
                 </React.Fragment>
             )
         } else if (this.state.hasLoaded === "people") {
             return (
                 <React.Fragment>
-                    <h1 className="title d-flex justify-content-center my-4">People:</h1>
+                    <h1 className="title d-flex justify-content-center mt-4 mb-2">People:</h1>
                     <Map arr1={this.state.property1} arr2={this.state.property2}
                         arr3={this.state.property3} arr4={this.state.property4} id={this.state.id}></Map>
                 </React.Fragment>
@@ -108,7 +108,7 @@ class App extends Component {
         } else if (this.state.hasLoaded === "vehicles") {
             return (
                 <React.Fragment>
-                    <h1 className="title d-flex justify-content-center my-4">Vehicles:</h1>
+                    <h1 className="title d-flex justify-content-center mt-4 mb-2">Vehicles:</h1>
                     <Map arr1={this.state.property1} arr2={this.state.property2}
                         arr3={this.state.property3} arr4={this.state.property4} id={this.state.id}></Map>
                 </React.Fragment>
