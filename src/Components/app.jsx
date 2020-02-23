@@ -7,50 +7,110 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            MovieInfo: [],
-            title: [],
-            description: [],
-            hasLoaded: false,
+            property1: [],
+            property2: [],
+            property3: [],
+            property4: [],
+            hasLoaded: "",
+            id: "",
         }
-        this.fetch()
     }
 
-    fetch() {
-        fetch("https://ghibliapi.herokuapp.com/films")
+    fetch_boy(url, id) {
+        fetch(url)
             .then(res => res.json())
-            .then(obj => this.SplitInfo(obj)
+            .then(obj => this.SplitInfo(obj, id)
             )
     }
 
-    SplitInfo(obj) {
-        let local_title_arr = []
-        let local_description_arr = []
-        obj.forEach((element) => {
-            local_title_arr.push(element.title)
-            local_description_arr.push(element.description)
-        })
+    SplitInfo(obj, id) {
+        let blank_arr_1 = []
+        let blank_arr_2 = []
+        let blank_arr_3 = []
+        let blank_arr_4 = []
+        if (id === 'films') {
+            obj.forEach((element) => {
+                blank_arr_1.push(element.title)
+                blank_arr_2.push(element.description)
+            })
+        } else if (id === 'people') {
+            obj.forEach((element) => {
+                blank_arr_1.push(element.name)
+                blank_arr_2.push(element.age)
+                blank_arr_3.push(element.gender)
+                blank_arr_4.push(element.url)
+            })
+            this.setState({
+                property3: blank_arr_3,
+                property4: blank_arr_4,
+            })
+        } else if (id === 'vehicles') {
+            obj.forEach((element) => {
+                blank_arr_1.push(element.name)
+                blank_arr_2.push(element.description)
+                blank_arr_3.push(element.vehicle_class)
+                blank_arr_4.push(element.length)
+            })
+            this.setState({
+                property3: blank_arr_3,
+                property4: blank_arr_4,
+            })
+        }
         this.setState({
-            title: local_title_arr,
-            description: local_description_arr,
+            property1: blank_arr_1,
+            property2: blank_arr_2,
+            id: id,
         })
     }
 
-    handleClick(event) {
+    handleClick(event, id) {
         event.preventDefault();
-        setTimeout(() => {
-            this.setState({
-                hasLoaded: true,
-            })
-        }, 350)
-
+        if (id === 'films') {
+            setTimeout(() => {
+                this.setState({
+                    hasLoaded: id,
+                })
+            }, 350)
+            this.fetch_boy("https://ghibliapi.herokuapp.com/films", id)
+        } else if (id === "people") {
+            setTimeout(() => {
+                this.setState({
+                    hasLoaded: id,
+                })
+            }, 350)
+            this.fetch_boy("https://ghibliapi.herokuapp.com/people", id)
+        } else if (id === "vehicles") {
+            setTimeout(() => {
+                this.setState({
+                    hasLoaded: id,
+                })
+            }, 350)
+            this.fetch_boy("https://ghibliapi.herokuapp.com/vehicles", id)
+        }
     }
 
     render() {
-        if (this.state.hasLoaded) {
+        if (this.state.hasLoaded === "films") {
             return (
                 <React.Fragment>
                     <h1 className="title d-flex justify-content-center my-4">Films:</h1>
-                    <Map arr1={this.state.title} arr2={this.state.description}></Map>
+                    <Map arr1={this.state.property1} arr2={this.state.property2} id={this.state.id}></Map>
+                </React.Fragment>
+            )
+        } else if (this.state.hasLoaded === "people") {
+            return (
+                <React.Fragment>
+                    <h1 className="title d-flex justify-content-center my-4">People:</h1>
+                    <Map arr1={this.state.property1} arr2={this.state.property2}
+                        arr3={this.state.property3} arr4={this.state.property4} id={this.state.id}></Map>
+                </React.Fragment>
+            )
+        } else if (this.state.hasLoaded === "vehicles") {
+            return (
+                <React.Fragment>
+                    <h1 className="title d-flex justify-content-center my-4">Vehicles:</h1>
+                    <Map arr1={this.state.property1} arr2={this.state.property2}
+                        arr3={this.state.property3} arr4={this.state.property4} id={this.state.id}></Map>
                 </React.Fragment>
             )
         } else {
@@ -59,9 +119,17 @@ class App extends Component {
                     <div className="row d-flex flex-column justify-content-center" id="load-container">
                         <img src="http://ghibliapi.herokuapp.com/images/logo.svg" alt="" />
                         <div className="d-flex flex-row justify-content-center my-3">
-                            <h1 className="d-flex align-self-center">Load?</h1>
-                            <button className="btn btn-primary ml-3 py-0 px-4" onClick={(event) => this.handleClick(event)}>
-                                YES
+                            <button className="btn btn-primary ml-3 py-1 px-4"
+                                onClick={(event) => this.handleClick(event, 'films')}>
+                                <h1>Load Films</h1>
+                            </button>
+                            <button className="btn btn-primary ml-3 py-1 px-4"
+                                onClick={(event) => this.handleClick(event, 'people')}>
+                                <h1>Load People</h1>
+                            </button>
+                            <button className="btn btn-primary ml-3 py-1 px-4"
+                                onClick={(event) => this.handleClick(event, 'vehicles')}>
+                                <h1>Load Vehicles</h1>
                             </button>
                         </div>
                     </div>
