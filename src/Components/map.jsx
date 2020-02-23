@@ -37,7 +37,7 @@ class Map extends Component {
 
         } else {
             return (
-                <h1>shit broke</h1>
+                <h1>broke {':('}</h1>
             )
         }
     }
