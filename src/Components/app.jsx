@@ -10,6 +10,7 @@ class App extends Component {
             MovieInfo: [],
             title: [],
             description: [],
+            hasLoaded: false,
         }
         this.fetch()
     }
@@ -34,13 +35,39 @@ class App extends Component {
         })
     }
 
+    handleClick(event) {
+        event.preventDefault();
+        setTimeout(() => {
+            this.setState({
+                hasLoaded: true,
+            })
+        }, 350)
+
+    }
+
     render() {
-        return (
-            <React.Fragment>
-                <h1 className="title d-flex justify-content-center mb-4">Films:</h1>
-                <Map arr1 = {this.state.title} arr2 = {this.state.description}></Map>
-            </React.Fragment>
-        )
+        if (this.state.hasLoaded) {
+            return (
+                <React.Fragment>
+                    <h1 className="title d-flex justify-content-center my-4">Films:</h1>
+                    <Map arr1={this.state.title} arr2={this.state.description}></Map>
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <div className="container">
+                    <div className="row d-flex flex-column justify-content-center" id="load-container">
+                        <img src="http://ghibliapi.herokuapp.com/images/logo.svg" alt="" />
+                        <div className="d-flex flex-row justify-content-center my-3">
+                            <h1 className="d-flex align-self-center">Load?</h1>
+                            <button className="btn btn-primary ml-3 py-0 px-4" onClick={(event) => this.handleClick(event)}>
+                                YES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 
