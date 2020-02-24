@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Map from './map'
 import 'isomorphic-fetch';
 import 'es6-promise';
+import Header from './Header'
 
 class App extends Component {
     constructor(props) {
@@ -93,14 +94,16 @@ class App extends Component {
         if (this.state.hasLoaded === "films") {
             return (
                 <React.Fragment>
-                    <h1 className="title d-flex justify-content-center mt-4 mb-2">Films:</h1>
+                    <Header />
+                    <h1 className="title d-flex justify-content-center my-2">Films:</h1>
                     <Map arr1={this.state.property1} arr2={this.state.property2} id={this.state.id}></Map>
                 </React.Fragment>
             )
         } else if (this.state.hasLoaded === "people") {
             return (
                 <React.Fragment>
-                    <h1 className="title d-flex justify-content-center mt-4 mb-2">People:</h1>
+                    <Header />
+                    <h1 className="title d-flex justify-content-center my-2">People:</h1>
                     <Map arr1={this.state.property1} arr2={this.state.property2}
                         arr3={this.state.property3} arr4={this.state.property4} id={this.state.id}></Map>
                 </React.Fragment>
@@ -108,7 +111,8 @@ class App extends Component {
         } else if (this.state.hasLoaded === "vehicles") {
             return (
                 <React.Fragment>
-                    <h1 className="title d-flex justify-content-center mt-4 mb-2">Vehicles:</h1>
+                    <Header />
+                    <h1 className="title d-flex justify-content-center my-2">Vehicles:</h1>
                     <Map arr1={this.state.property1} arr2={this.state.property2}
                         arr3={this.state.property3} arr4={this.state.property4} id={this.state.id}></Map>
                 </React.Fragment>
@@ -117,7 +121,11 @@ class App extends Component {
             return (
                 <div className="container">
                     <div className="row d-flex flex-column justify-content-center" id="load-container">
-                        <img src="http://ghibliapi.herokuapp.com/images/logo.svg" alt="" />
+                        <img className="mx-auto" src="http://ghibliapi.herokuapp.com/images/logo.svg" alt="" style={{
+                            'border': '3px solid white',
+                            'borderRadius': '20em', 'backgroundColor': 'rgb(50,50,50)', 'height': '10em', 'width':'50em'
+                        }} />
+
                         <div className="d-flex flex-row justify-content-center my-3">
                             <button className="btn btn-primary ml-3 py-1 px-4"
                                 onClick={(event) => this.handleClick(event, 'films')}>
